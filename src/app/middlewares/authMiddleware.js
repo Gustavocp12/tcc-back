@@ -2,16 +2,15 @@ const jwt = require('jsonwebtoken');
 const config = require('../../../config');
 
 const authMiddleware = async (req, res, next) => {
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.status(401).json({ message: 'Login inválido' });
-    }
-    try {
-        req.user = jwt.verify(token, config.SECRET);
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.status(401).send({ message: 'Você não tem permissão para o acesso'});
+
+    jwt.verify(token, config.SECRET, (err, user) => {
+        if (err) return res.status(403).send({ message: 'Acesso negado' });
+        req.user = user;
         next();
-    } catch (err) {
-        return res.status(401).json({ message: 'Acesso negado' });
-    }
+    });
 }
 
 module.exports = authMiddleware;
