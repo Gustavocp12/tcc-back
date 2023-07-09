@@ -7,8 +7,7 @@ const authMiddleware = async (req, res, next) => {
         return res.status(401).json({ message: 'Login inválido' });
     }
     try {
-        const decoded = jwt.verify(token, config.SECRET);
-        req.user = decoded;
+        req.user = jwt.verify(token, config.SECRET);
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Acesso negado' });
