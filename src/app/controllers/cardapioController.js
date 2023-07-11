@@ -2,7 +2,8 @@ const cardapioModel = require('../models/cardapioModel');
 
 const postCardapio = async (req, res) => {
     try{
-        const { banner, corTema, corNav } = req.body;
+        const { corTema, corNav } = req.body;
+        const banner = req.files[0].originalname;
         const result = await cardapioModel.postCardapio(banner, corTema, corNav);
 
         return res.status(201).json(result);
