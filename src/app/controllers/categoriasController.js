@@ -11,6 +11,29 @@ const postCategory = async (req, res) => {
     }
 }
 
+const getCategories = async (req, res) => {
+    try{
+        const result = await categoriasModel.getCategories();
+
+        return res.status(200).json(result);
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+const getCategoryById = async (req, res) => {
+    try{
+        const { id } = req.params;
+        const result = await categoriasModel.getCategoryById(id);
+
+        return res.status(200).json(result);
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
 module.exports = {
     postCategory,
+    getCategories,
+    getCategoryById
 }

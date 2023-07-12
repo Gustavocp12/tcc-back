@@ -5,12 +5,12 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'src/assets/uploads/')
+        cb(null, 'src/assets/uploads/banner/')
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname)
     }
-})
+});
 
 const upload = multer({ 
     storage: storage,
@@ -20,5 +20,6 @@ const upload = multer({
 const router = express.Router();
 
 router.post('/cardapio', authMiddleware, upload.array("files"), cardapioController.postCardapio);
+router.get('/cardapio', authMiddleware, cardapioController.getCardapio);
 
 module.exports = router;

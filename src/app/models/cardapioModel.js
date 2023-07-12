@@ -11,6 +11,18 @@ const postCardapio = async (banner, corTema, corNav) => {
     }
 }
 
+const getCardapio = async () => {
+    try{
+        const sql = 'SELECT * FROM cardapio';
+        const result = await connection.execute(sql);
+
+        return result[0][0];
+    }catch (err){
+        throw new Error(err);
+    }
+}
+
 module.exports = {
-    postCardapio
+    postCardapio,
+    getCardapio
 }
