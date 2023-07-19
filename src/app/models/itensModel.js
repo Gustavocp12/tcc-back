@@ -1,9 +1,9 @@
 const connection = require('./connection');
 
-const postItem = async (nome, foto, precoPadrao, precoPromocional, descricao, estoque, idCategoria) => {
+const postItem = async (nome, foto, precoPadrao, precoPromocional, descricao, estoque) => {
     try{
-        const sql = 'INSER INTO itens (nome, foto, precoPadrao, precoPromocional, descricao, estoque, ID_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        const result = await connection.execute(sql, [nome, foto, precoPadrao, precoPromocional, descricao, estoque, idCategoria]);
+        const sql = 'INSERT INTO itens (nome, foto, precoPadrao, precoPromocional, descricao, estoque) VALUES (?, ?, ?, ?, ?, ?)';
+        const result = await connection.execute(sql, [nome, foto, precoPadrao, precoPromocional, descricao, estoque]);
 
         return result[0][0];
     }catch(err){
@@ -16,7 +16,7 @@ const getItens = async () => {
         const sql = 'SELECT * FROM itens';
         const result = await connection.execute(sql);
 
-        return result[0][0];
+        return result[0];
     }catch(err){
         throw new Error(err);
     }
@@ -33,8 +33,32 @@ const getItemById = async (id) => {
     }
 }
 
+const putItemCategory = async (idCategoria, id) => {
+    try{
+        const sql = 'UPDATE itens SET ID_categoria = ? WHERE id = ?';
+        const result = await connection.execute(sql, [idCategoria, id]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
+const getItensByCategory = async (idCategoria) => {
+    try{
+        const sql = 'SELECT * FROM itens WHERE ID_categoria = ?';
+        const result = await connection.execute(sql, [idCategoria]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
 module.exports = {
     postItem,
     getItens,
-    getItemById
+    getItemById,
+    putItemCategory,
+    getItensByCategory
 }

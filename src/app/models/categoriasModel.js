@@ -16,7 +16,7 @@ const getCategories = async () => {
         const sql = 'SELECT * FROM categorias';
         const result = await connection.execute(sql);
 
-        return result[0][0];
+        return result[0];
     }catch(err){
         throw new Error(err);
     }
