@@ -3,7 +3,6 @@ const category = require('./categoriasRoutes');
 const itens = require('./itensRoutes');
 const cardapio = require('./cardapioRoutes');
 const estabelecimento = require('./estabelecimentoRoutes');
-const itemCategoria = require('./itemCategoriaRoutes');
 
 const routes = (app) => {
     app.use(
@@ -12,7 +11,6 @@ const routes = (app) => {
         itens,
         cardapio,
         estabelecimento,
-        itemCategoria
     );
 };
 
