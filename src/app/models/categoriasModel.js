@@ -33,8 +33,32 @@ const getCategoryById = async (id) => {
     }
 }
 
+const deleteCategory = async (id) => {
+    try{
+        const sql = 'DELETE FROM categorias WHERE ID = ?';
+        const result = await connection.execute(sql, [id]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
+const putCategoryName = async (nome, id) => {
+    try{
+        const sql = 'UPDATE categorias SET nome = ? WHERE id = ?';
+        const result = await connection.execute(sql, [nome, id]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
 module.exports = {
     postCategory,
     getCategories,
-    getCategoryById
+    getCategoryById,
+    deleteCategory,
+    putCategoryName
 }

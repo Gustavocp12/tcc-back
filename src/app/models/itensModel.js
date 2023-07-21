@@ -35,7 +35,7 @@ const getItemById = async (id) => {
 
 const putItemCategory = async (idCategoria, id) => {
     try{
-        const sql = 'UPDATE itens SET ID_categoria = ? WHERE id = ?';
+        const sql = 'UPDATE itens SET ID_categoria = ? WHERE ID = ?';
         const result = await connection.execute(sql, [idCategoria, id]);
 
         return result[0];
@@ -55,10 +55,47 @@ const getItensByCategory = async (idCategoria) => {
     }
 }
 
+const putItemCategoryForNull = async (id) => {
+    try{
+        const sql = 'UPDATE itens SET ID_categoria = null WHERE id = ?';
+        const result = await connection.execute(sql, [id]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
+const putItemById = async (nome, foto, precoPadrao, precoPromocional, descricao, estoque, id, idCategoria) => {
+    try{
+        const sql = 'UPDATE itens SET nome = ?, foto = ?, precoPadrao = ?, precoPromocional = ?, descricao = ?, estoque = ?, ID_categoria = ? WHERE ID = ?';
+        const result = await connection.execute(sql, [nome, foto, precoPadrao, precoPromocional, descricao, estoque, idCategoria, id]);
+
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
+const deleteItemById = async (id) => {
+    try{
+        const sql = 'DELETE FROM itens WHERE itens.ID = ?';
+        const result = await connection.execute(sql, [id]);
+
+        return result[0];
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
 module.exports = {
     postItem,
     getItens,
     getItemById,
     putItemCategory,
-    getItensByCategory
+    getItensByCategory,
+    putItemCategoryForNull,
+    putItemById,
+    deleteItemById
 }

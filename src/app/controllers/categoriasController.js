@@ -32,8 +32,32 @@ const getCategoryById = async (req, res) => {
     }
 }
 
+const deleteCategory = async (req, res) => {
+    try{
+        const { id } = req.params;
+        const result = await categoriasModel.deleteCategory(id);
+
+        return res.status(200).json(result);
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+const putCategoryName = async (req, res) => {
+    try{
+        const { nome, id } = req.body;
+        const result = await categoriasModel.putCategoryName(nome, id);
+
+        return res.status(200).json(result);
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
 module.exports = {
     postCategory,
     getCategories,
-    getCategoryById
+    getCategoryById,
+    deleteCategory,
+    putCategoryName
 }

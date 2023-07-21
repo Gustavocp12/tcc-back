@@ -24,5 +24,8 @@ router.get('/itens', authMiddleware, itensController.getItens);
 router.get('/itens/:id', authMiddleware, itensController.getItemById);
 router.get('/itens/categoria/:idCategoria', authMiddleware, itensController.getItensByCategory);
 router.put('/itens', authMiddleware, itensController.putItemCategory);
+router.put('/itens/null', authMiddleware, itensController.putItemCategoryForNull);
+router.put('/itens/:id', authMiddleware, upload.array("files"), itensController.putItemById);
+router.delete('/itens/:id', authMiddleware, itensController.deleteItemById);
 
 module.exports = router;
